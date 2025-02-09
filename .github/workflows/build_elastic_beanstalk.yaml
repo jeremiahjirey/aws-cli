@@ -38,5 +38,5 @@ jobs:
               --environment-name ${{ secrets.EB_ENV_NAME }} \
               --cname-prefix  ${{ secrets.EB_APP_NAME }} \
               --version-label $VERSION_LABEL \
-              --solution-arn  ${{secrets.EB_PLATFORM_NAME}}
+              --solution-arn  "arn:aws:elasticbeanstalk:region::platform/Node.js 22 running on 64bit Amazon Linux 2023"
      
