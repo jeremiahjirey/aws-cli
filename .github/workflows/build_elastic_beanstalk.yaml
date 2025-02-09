@@ -19,9 +19,6 @@ jobs:
             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
             AWS_REGION: ${{ secrets.AWS_REGION }}
-            EB_ENV_NAME: ${{ secrets.EB_ENV_NAME }}
-            EB_APP_NAME: ${{ secrets.EB_APP_NAME }}
-            EB_PLATFORM_NAME: ${{secrets.EB_PLATFORM_NAME}}
          
 
          - name: Build Elastic Beanstalk
