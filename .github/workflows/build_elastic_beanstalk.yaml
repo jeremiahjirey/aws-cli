@@ -29,6 +29,7 @@ jobs:
               EB_ENV_NAME: ${{ secrets.EB_ENV_NAME }}
               EB_PLATFORM_NAME: ${{secrets.EB_PLATFORM_NAME}}
               S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
+              EB_DNS_NAME: ${{secrets.EB_DNS_NAME}}
            run: |
               VERSION_LABEL="${{ github.sha }}-$(date +%s)"
               aws elasticbeanstalk create-application \
@@ -41,7 +42,7 @@ jobs:
               aws elasticbeanstalk create-environment \
               --application-name  ${{ secrets.EB_APP_NAME }} \
               --environment-name ${{ secrets.EB_ENV_NAME }} \
-              --cname-prefix  ${{ secrets.EB_APP_NAME }} \
+              --cname-prefix ${{secrets.EB_DNS_NAME}} \
               --version-label $VERSION_LABEL \
               --platform-arn  "arn:aws:elasticbeanstalk:us-east-1::platform/Node.js 22 running on 64bit Amazon Linux 2023"
      
