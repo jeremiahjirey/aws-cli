@@ -12,17 +12,20 @@ jobs:
          - name: Checkout
            uses: actions/checkout@v3
 
-         - name: Configure AWS Credential
-           uses: aws-actions/configure-aws-credentials@v1
-           with:
-            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}  
-            aws-region: ${{ secrets.AWS_REGION }}
-         
+         - name: Configure AWS CLI
+           run: |
+                aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+                aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                aws configure set aws_session_token ${{ secrets.AWS_SESSION_TOKEN }}
+                aws configure set region ${{ secrets.AWS_REGION }}
+            
 
          - name: Build Elastic Beanstalk
            env:
+              AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+              AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+              AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+              AWS_REGION: ${{ secrets.AWS_REGION }}
               EB_ENV_NAME: ${{ secrets.EB_ENV_NAME }}
               EB_APP_NAME: ${{ secrets.EB_APP_NAME }}
               EB_PLATFORM_NAME: ${{secrets.EB_PLATFORM_NAME}}
