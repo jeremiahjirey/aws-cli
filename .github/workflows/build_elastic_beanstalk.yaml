@@ -28,12 +28,13 @@ jobs:
               AWS_REGION: ${{ secrets.AWS_REGION }}
               EB_ENV_NAME: ${{ secrets.EB_ENV_NAME }}
               EB_PLATFORM_NAME: ${{secrets.EB_PLATFORM_NAME}}
+              S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
            run: |
               VERSION_LABEL="${{ github.sha }}-$(date +%s)"
-              aws elasticbeanstalk create-application \
-              --application-name  ${{ secrets.EB_APP_NAME }} \
-              --description  ${{ secrets.EB_APP_NAME }} \
-              --version-label $VERSION_LABEL 
+              aws elasticbeanstalk create-application-version \
+              --application-name ${{ secrets.EB_APP_NAME }} \
+              --version-label $VERSION_LABEL \
+              --source-bundle S3Bucket=${{ secrets.S3_BUCKET_NAME }},S3Key=showipjs.zip
               aws elasticbeanstalk create-environment \
               --application-name  ${{ secrets.EB_APP_NAME }} \
               --environment-name ${{ secrets.EB_ENV_NAME }} \
