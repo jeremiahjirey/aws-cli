@@ -27,17 +27,16 @@ jobs:
               AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
               AWS_REGION: ${{ secrets.AWS_REGION }}
               EB_ENV_NAME: ${{ secrets.EB_ENV_NAME }}
-              EB_APP_NAME: ${{ secrets.EB_APP_NAME }}
               EB_PLATFORM_NAME: ${{secrets.EB_PLATFORM_NAME}}
            run: |
               VERSION_LABEL="${{ github.sha }}-$(date +%s)"
               aws elasticbeanstalk create-application
-              --application-name  ${{ secrets.EB_APP_NAME }}\
-              --description  ${{ secrets.EB_APP_NAME }}
+              --application-name firstapp\
+              --description firstapp
               aws elasticbeanstalk create-environment\
-              --application-name  ${{ secrets.EB_APP_NAME }}\
+              --application-name  firstapp\
               --environment-name ${{ secrets.EB_ENV_NAME }}\
-              --cname-prefix  ${{ secrets.EB_APP_NAME }}\
+              --cname-prefix  firstapp\
               --version-label $VERSION_LABEL\
               --solution-arn  ${{secrets.EB_PLATFORM_NAME}}
      
