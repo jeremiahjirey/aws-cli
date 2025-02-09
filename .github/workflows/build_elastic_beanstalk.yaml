@@ -31,6 +31,9 @@ jobs:
               S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
            run: |
               VERSION_LABEL="${{ github.sha }}-$(date +%s)"
+              aws elasticbeanstalk create-application \
+              --application-name  ${{ secrets.EB_APP_NAME }} \
+              --description  ${{ secrets.EB_APP_NAME }}
               aws elasticbeanstalk create-application-version \
               --application-name ${{ secrets.EB_APP_NAME }} \
               --version-label $VERSION_LABEL \
