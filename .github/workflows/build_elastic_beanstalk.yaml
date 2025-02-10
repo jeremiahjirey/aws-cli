@@ -90,12 +90,9 @@ jobs:
               --environment-name ${{ secrets.EB_ENV_NAME }} \
               --cname-prefix ${{secrets.EB_DNS_NAME}} \
               --version-label $VERSION_LABEL \
+              --option-settings Namespace=aws:autoscaling:launchconfiguration,OptionName=IamInstanceProfile,Value=arn:aws:iam::996958409310:role/LabRole
               --platform-arn  "arn:aws:elasticbeanstalk:us-east-1::platform/Node.js 22 running on 64bit Amazon Linux 2023"
               aws elasticbeanstalk describe-environments \
               --environment-names ${{ secrets.EB_ENV_NAME }}
-              aws elasticbeanstalk update-environment \
-              --environment-name ${{ secrets.EB_ENV_NAME }} \
-              --version-label $VERSION_LABEL \
-              --option-settings Namespace=aws:autoscaling:launchconfiguration,OptionName=IamInstanceProfile,Value=arn:aws:iam::996958409310:role/LabRole
-            
+              
      
