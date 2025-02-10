@@ -91,7 +91,7 @@ jobs:
               --cname-prefix ${{secrets.EB_DNS_NAME}} \
               --version-label $VERSION_LABEL \
               --platform-arn  "arn:aws:elasticbeanstalk:us-east-1::platform/Node.js 22 running on 64bit Amazon Linux 2023"
-              --operations-role arn:aws:iam::996958409310:role/LabRole
+              --service-role arn:aws:iam::996958409310:role/LabRole
               aws elasticbeanstalk describe-environments \
               --environment-names ${{ secrets.EB_ENV_NAME }}
      
