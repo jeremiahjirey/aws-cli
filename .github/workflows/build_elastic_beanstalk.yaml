@@ -67,17 +67,17 @@ jobs:
          - name: Checkout
            uses: actions/checkout@v3
 
-         - name: Setup AWS CLI
-           run: |
-             sudo apt update
-             sudo apt install -y awscli
-
          - name: Configure AWS CLI
            run: |
                 aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
                 aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                 aws configure set aws_session_token ${{ secrets.AWS_SESSION_TOKEN }}
                 aws configure set region ${{ secrets.AWS_REGION }}
+
+         - name: Setup AWS CLI
+           run: |
+              sudo apt update
+              sudo apt install -y awscli
 
          - name: Install Elastic Beanstalk CLI
            run: |
