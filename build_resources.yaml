@@ -1,0 +1,33 @@
+Resources:
+  Application:
+    Type: AWS::ElasticBeanstalk::Application
+    Properties:
+      ApplicationName: trainingcli
+      Description: first app for training-cli
+  AppVersion:
+    Type: AWS::ElasticBeanstalk::ApplicationVersion
+    Properties:
+      ApplicationName: !Ref Application
+      Description: Version 1.0
+      SourceBundle:
+        S3Bucket: Fn::Join:
+          - '-'
+          - 
+          - 'amazon-destination'
+          - !Ref 'AWS::Region'
+        S3Key: showipjs.zip
+  Environment:
+    Type: AWS::ElasticBeanstalk::Environment
+    Properties:
+      ApplicationName: !Ref Application
+      CNAMEPrefix: awstraining
+      Description: aws cli training
+      PlatformArn: arn:aws:elasticbeanstalk:us-east-1::platform/Node.js 22 running on 64bit Amazon Linux 2023
+      VersionLabel: !Ref AppVersion
+      OptionSettings:
+        - Namespace: 'aws:autoscaling:launchconfiguration'
+          OptionName: IamInstanceProfile
+          Value: arn:aws:iam::996958409310:instance-profile/LabInstanceProfile
+        - Namespace: 'aws:elasticbeanstalk:environment'
+          OptionName: ServiceRole
+          Value: arn:aws:iam::996958409310:role/LabRole
